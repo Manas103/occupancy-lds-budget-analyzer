@@ -1,0 +1,15 @@
+{
+  "total_original_kernels": 19,
+  "lds_bound_count": 7,
+  "lds_bound_kernels": [
+    "gemm_tile_regtile<48>",
+    "gemm_tile_regtile<64>",
+    "gemm_tile_regtile<80>",
+    "histogram_privatized<4096>",
+    "histogram_privatized<16384>",
+    "stencil_blur<64, 2>",
+    "stencil_blur<96, 4>"
+  ],
+  "retiled_fix_count": 4
+}
+exit: 0

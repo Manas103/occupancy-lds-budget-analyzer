@@ -1,0 +1,29 @@
+{
+  "_comment": "block_threads is the one input this static analysis takes from outside the compiler's own report: the workgroup size each kernel is launched with (a launch-time choice, not something a device-code-only compile emits). Everything else (VGPRs, LDS bytes, scratch) comes from ROCm clang's -S output. 'set' is which pass each kernel belongs to: the 19-kernel original suite, or one of the 4 retiled fixes applied afterward.",
+  "kernels": {
+    "gemm_tile<16>": {"block_threads": 256, "set": "original"},
+    "gemm_tile<24>": {"block_threads": 576, "set": "original"},
+    "gemm_tile<32>": {"block_threads": 1024, "set": "original"},
+    "gemm_tile_regtile<48>": {"block_threads": 256, "set": "original"},
+    "gemm_tile_regtile<64>": {"block_threads": 256, "set": "original"},
+    "gemm_tile_regtile<80>": {"block_threads": 256, "set": "original"},
+    "stencil_blur<32, 1>": {"block_threads": 256, "set": "original"},
+    "stencil_blur<32, 4>": {"block_threads": 256, "set": "original"},
+    "stencil_blur<64, 2>": {"block_threads": 256, "set": "original"},
+    "stencil_blur<96, 4>": {"block_threads": 256, "set": "original"},
+    "reduce_sum<128>": {"block_threads": 128, "set": "original"},
+    "reduce_sum<256>": {"block_threads": 256, "set": "original"},
+    "reduce_sum<512>": {"block_threads": 512, "set": "original"},
+    "histogram_privatized<1024>": {"block_threads": 256, "set": "original"},
+    "histogram_privatized<4096>": {"block_threads": 256, "set": "original"},
+    "histogram_privatized<16384>": {"block_threads": 256, "set": "original"},
+    "transpose_tiled<32>": {"block_threads": 1024, "set": "original"},
+    "transpose_tiled<64>": {"block_threads": 1024, "set": "original"},
+    "scan_block<1024>": {"block_threads": 1024, "set": "original"},
+
+    "gemm_tile_regtile_kd<64, 16>": {"block_threads": 256, "set": "retiled_fix", "fixes": "gemm_tile_regtile<64>"},
+    "gemm_tile_regtile_kd<80, 16>": {"block_threads": 256, "set": "retiled_fix", "fixes": "gemm_tile_regtile<80>"},
+    "stencil_blur<48, 4>": {"block_threads": 256, "set": "retiled_fix", "fixes": "stencil_blur<96, 4>"},
+    "histogram_privatized<2048>": {"block_threads": 256, "set": "retiled_fix", "fixes": "histogram_privatized<16384>"}
+  }
+}
